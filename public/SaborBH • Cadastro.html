@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)https://resto-review-hub-1.preview.emergentagent.com/cadastro.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaborBH • Cadastro</title>
+<link href="./SaborBH • Cadastro_files/css2" rel="stylesheet">
+<link href="./SaborBH • Cadastro_files/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="./SaborBH • Cadastro_files/all.min.css">
+<link rel="stylesheet" href="./SaborBH • Cadastro_files/style.css">
+</head>
+<body class="auth-body">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="sabor-logo" viewBox="0 0 64 64">
+    <defs><lineargradient id="lg1" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ff7a3d"></stop><stop offset="1" stop-color="#c0392b"></stop></lineargradient></defs>
+    <circle cx="32" cy="32" r="30" fill="url(#lg1)"></circle>
+    <path d="M20 18c0 6 3 10 6 12v14a2 2 0 0 0 4 0V30c3-2 6-6 6-12 0-2-1-3-2-3s-2 1-2 3v6a1 1 0 0 1-2 0v-6c0-2-1-3-2-3s-2 1-2 3v6a1 1 0 0 1-2 0v-6c0-2-1-3-2-3s-2 1-2 3z" fill="#fff"></path>
+    <path d="M44 16c-3 1-6 5-6 11s2 9 4 9v8a2 2 0 0 0 4 0V16z" fill="#ffd27a"></path>
+  </symbol>
+</svg>
+
+<main class="auth-shell">
+  <div class="auth-card shadow-lg" data-testid="signup-card">
+    <div class="auth-brand">
+      <svg class="auth-logo" aria-hidden="true"><use href="#sabor-logo"></use></svg>
+      <div>
+        <h1 class="display-brand mb-0">SaborBH</h1>
+        <p class="text-muted-soft mb-0" data-i18n="tagline">Descubra restaurantes em Belo Horizonte</p>
+      </div>
+    </div>
+
+    <div class="lang-switch mb-3" role="group">
+      <button type="button" class="lang-btn active" data-lang="pt">PT</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="es">ES</button>
+    </div>
+
+    <h2 class="h4 mb-1" data-i18n="signup.title">Criar sua conta</h2>
+    <p class="text-muted-soft mb-4" data-i18n="signup.sub">Leva menos de 30 segundos.</p>
+
+    <form id="signupForm" novalidate="" data-testid="signup-form">
+      <div class="mb-3">
+        <label class="form-label" data-i18n="field.name">Nome completo</label>
+        <div class="input-wrap">
+          <i class="fa-regular fa-user"></i>
+          <input type="text" class="form-control form-control-lg" id="signupName" required="" minlength="2" data-testid="signup-name-input">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" data-i18n="field.email">E-mail</label>
+        <div class="input-wrap">
+          <i class="fa-regular fa-envelope"></i>
+          <input type="email" class="form-control form-control-lg" id="signupEmail" required="" data-testid="signup-email-input">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" data-i18n="field.password">Senha</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" class="form-control form-control-lg" id="signupPassword" required="" minlength="4" data-testid="signup-password-input">
+        </div>
+        <small class="text-muted-soft" data-i18n="signup.pwd_hint">Mínimo 4 caracteres</small>
+      </div>
+
+      <div id="signupError" class="alert alert-danger py-2 d-none" role="alert" data-testid="signup-error"></div>
+
+      <button type="submit" class="btn btn-brand btn-lg w-100 mb-3" data-testid="signup-submit-btn">
+        <i class="fa-solid fa-user-plus me-2"></i>
+        <span data-i18n="signup.cta">Criar conta</span>
+      </button>
+
+      <p class="text-center text-muted-soft mb-0">
+        <span data-i18n="signup.have_account">Já tem conta?</span>
+        <a href="https://resto-review-hub-1.preview.emergentagent.com/index.html" class="link-accent" data-testid="go-login-link" data-i18n="signup.login">Entrar</a>
+      </p>
+    </form>
+  </div>
+
+  <aside class="auth-visual" aria-hidden="true">
+    <div class="visual-badge"><i class="fa-solid fa-bowl-food"></i></div>
+    <h3 data-i18n="signup.visual_title">Faça parte da comunidade</h3>
+    <p data-i18n="signup.visual_sub">Salve favoritos, envie feedbacks e descubra novos sabores.</p>
+  </aside>
+</main>
+
+<script src="./SaborBH • Cadastro_files/script.js.baixados"></script>
+<script>initSignup();</script>
+<script defer="" src="./SaborBH • Cadastro_files/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;7f7b0fd8732c4326aae4b9d58d5c514a&quot;,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+</body></html>

@@ -1,0 +1,824 @@
+/* ===========================================================
+   SaborBH — script.js (Semana 6)
+   Login/Cadastro (localStorage), i18n PT/EN/ES, restaurantes,
+   estrelas clicáveis, feedbacks, mini-mapa Leaflet, perfil.
+   =========================================================== */
+
+/* ---------- DATA: RESTAURANTES ---------- */
+const RESTAURANTS = [
+  {
+    id: "cantina",
+    name: "Cantina Bella Italia",
+    type: "massa",
+    typeLabel: { pt: "Massas / Italiana", en: "Pasta / Italian", es: "Pastas / Italiana" },
+    address: "R. Antônio de Albuquerque, 123 — Savassi",
+    coords: [-19.9386, -43.9313],
+    rating: 4.8,
+    band: true,
+    photos: [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900",
+      "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=900",
+      "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=900"
+    ],
+    desc: { pt: "Massas artesanais, risotos cremosos e ambiente acolhedor com música ao vivo às sextas.",
+            en: "Artisanal pasta, creamy risottos and a cozy atmosphere with live music on Fridays.",
+            es: "Pastas artesanales, risottos cremosos y ambiente acogedor con música en vivo los viernes." },
+    menu: [
+      { name: { pt: "Tagliatelle ao ragù", en: "Tagliatelle ragù", es: "Tagliatelle al ragú" },
+        desc:{ pt: "Massa fresca com molho de carne cozido 6h", en: "Fresh pasta, 6h slow-cooked meat sauce", es: "Pasta fresca, salsa de carne 6h" }, price: "R$ 62" },
+      { name: { pt: "Risoto de funghi", en: "Mushroom risotto", es: "Risotto de hongos" },
+        desc:{ pt: "Arroz carnaroli, funghi porcini e parmesão", en: "Carnaroli rice, porcini and parmesan", es: "Arroz carnaroli, porcini y parmesano" }, price: "R$ 78" },
+      { name: { pt: "Tiramisù da casa", en: "House tiramisù", es: "Tiramisù de la casa" },
+        desc:{ pt: "Sobremesa clássica com café espresso", en: "Classic espresso dessert", es: "Postre clásico con espresso" }, price: "R$ 32" }
+    ]
+  },
+  {
+    id: "sushi",
+    name: "Sushi Zen Garden",
+    type: "japonesa",
+    typeLabel: { pt: "Japonesa", en: "Japanese", es: "Japonesa" },
+    address: "R. dos Inconfidentes, 456 — Lourdes",
+    coords: [-19.9332, -43.9466],
+    rating: 4.6, band: false,
+    photos: [
+      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900",
+      "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=900",
+      "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=900"
+    ],
+    desc: { pt: "Combinados frescos, sashimis premium e atendimento atento em espaço minimalista.",
+            en: "Fresh combos, premium sashimi and attentive service in a minimalist space.",
+            es: "Combinados frescos, sashimi premium y servicio atento en espacio minimalista." },
+    menu: [
+      { name: {pt:"Combinado 24 peças", en:"24-piece combo", es:"Combinado 24 piezas"},
+        desc:{pt:"Sashimi, niguiri e uramaki variados", en:"Assorted sashimi, nigiri, uramaki", es:"Sashimi, nigiri y uramaki surtidos"}, price:"R$ 89" },
+      { name: {pt:"Temaki de salmão", en:"Salmon temaki", es:"Temaki de salmón"},
+        desc:{pt:"Cone com salmão fresco e cream cheese", en:"Cone with fresh salmon & cream cheese", es:"Cono con salmón fresco y queso crema"}, price:"R$ 28" },
+      { name: {pt:"Mochi de matcha", en:"Matcha mochi", es:"Mochi de matcha"},
+        desc:{pt:"Sorvete coberto de arroz glutinoso", en:"Ice cream wrapped in rice dough", es:"Helado envuelto en masa de arroz"}, price:"R$ 22" }
+    ]
+  },
+  {
+    id: "churrasco",
+    name: "Churrascaria Fogo Gaúcho",
+    type: "churrasco",
+    typeLabel: {pt:"Churrasco", en:"BBQ / Steakhouse", es:"Parrilla"},
+    address: "Av. Portugal, 789 — Pampulha",
+    coords: [-19.8563, -43.9756],
+    rating: 4.9, band: true,
+    photos: [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900",
+      "https://images.unsplash.com/photo-1558030006-450675393462?w=900",
+      "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=900"
+    ],
+    desc: {pt:"Rodízio completo com cortes nobres, buffet variado e músico ao vivo nas noites.",
+           en:"Full rodízio with prime cuts, rich buffet and live music at night.",
+           es:"Rodizio completo con cortes nobles, buffet variado y música en vivo por la noche."},
+    menu: [
+      { name:{pt:"Rodízio completo", en:"Full rodízio", es:"Rodizio completo"},
+        desc:{pt:"+20 cortes + buffet + sobremesa", en:"20+ cuts + buffet + dessert", es:"+20 cortes + buffet + postre"}, price:"R$ 129" },
+      { name:{pt:"Picanha na chapa", en:"Picanha steak", es:"Picanha a la plancha"},
+        desc:{pt:"Corte nobre com arroz e farofa", en:"Prime cut with rice and farofa", es:"Corte noble con arroz y farofa"}, price:"R$ 95" }
+    ]
+  },
+  {
+    id: "bar",
+    name: "Boteco do Juca",
+    type: "bar",
+    typeLabel: {pt:"Bar / Petiscos", en:"Bar / Snacks", es:"Bar / Tapas"},
+    address: "R. da Bahia, 1010 — Centro",
+    coords: [-19.9245, -43.9352],
+    rating: 4.4, band: true,
+    photos: [
+      "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=900",
+      "https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=900",
+      "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=900"
+    ],
+    desc: {pt:"Cerveja artesanal gelada, tira-gostos mineiros e samba ao vivo todo sábado.",
+           en:"Cold craft beer, Minas Gerais snacks and live samba every Saturday.",
+           es:"Cerveza artesanal, tapas mineiras y samba en vivo los sábados."},
+    menu: [
+      { name:{pt:"Torresmo de barriga", en:"Pork belly crackling", es:"Chicharrón de panza"},
+        desc:{pt:"Crocante por fora, suculento por dentro", en:"Crispy outside, juicy inside", es:"Crujiente por fuera, jugoso por dentro"}, price:"R$ 38" },
+      { name:{pt:"Chopp artesanal 300ml", en:"Craft draft 300ml", es:"Chop artesanal 300ml"},
+        desc:{pt:"Pilsen, IPA ou Weiss da casa", en:"House Pilsen, IPA or Weiss", es:"Pilsen, IPA o Weiss"}, price:"R$ 18" }
+    ]
+  },
+  {
+    id: "frutos",
+    name: "Maré Alta Frutos do Mar",
+    type: "frutos",
+    typeLabel: {pt:"Frutos do Mar", en:"Seafood", es:"Mariscos"},
+    address: "Av. Olegário Maciel, 2222 — Lourdes",
+    coords: [-19.9294, -43.9501],
+    rating: 4.7, band: false,
+    photos: [
+      "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900",
+      "https://images.unsplash.com/photo-1559847844-5315695dadae?w=900",
+      "https://images.unsplash.com/photo-1607301405390-d831c242f59b?w=900"
+    ],
+    desc: {pt:"Peixes frescos do dia, moquecas cremosas e ceviches cítricos em ambiente elegante.",
+           en:"Catch-of-the-day fish, creamy moquecas and citrus ceviches in elegant setting.",
+           es:"Pescado del día, moquecas cremosas y ceviches cítricos en ambiente elegante."},
+    menu: [
+      { name:{pt:"Moqueca de camarão", en:"Shrimp moqueca", es:"Moqueca de camarón"},
+        desc:{pt:"Com leite de coco e dendê, serve 2", en:"Coconut milk & palm oil, serves 2", es:"Con leche de coco y dendê, 2 pers."}, price:"R$ 148" },
+      { name:{pt:"Ceviche peruano", en:"Peruvian ceviche", es:"Ceviche peruano"},
+        desc:{pt:"Peixe branco, limão, cebola roxa", en:"White fish, lime, red onion", es:"Pescado blanco, limón, cebolla morada"}, price:"R$ 68" }
+    ]
+  },
+  {
+    id: "hamburguer",
+    name: "Casa do Hambúrguer Artesanal",
+    type: "hamburguer",
+    typeLabel: {pt:"Hambúrguer", en:"Burger", es:"Hamburguesa"},
+    address: "R. Pernambuco, 555 — Funcionários",
+    coords: [-19.9326, -43.9371],
+    rating: 4.5, band: false,
+    photos: [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=900",
+      "https://images.unsplash.com/photo-1550317138-10000687a72b?w=900",
+      "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=900"
+    ],
+    desc: {pt:"Blends autorais, pães brioche da casa e batatas rústicas temperadas na hora.",
+           en:"Signature blends, house brioche buns and freshly seasoned rustic fries.",
+           es:"Blends propios, pan brioche de la casa y papas rústicas recién condimentadas."},
+    menu: [
+      { name:{pt:"Burger Mineiro", en:"Minas Burger", es:"Burger Minero"},
+        desc:{pt:"Queijo canastra, geleia de pimenta, bacon", en:"Canastra cheese, pepper jelly, bacon", es:"Queso canastra, mermelada picante, tocino"}, price:"R$ 49" },
+      { name:{pt:"Batata rústica", en:"Rustic fries", es:"Papas rústicas"},
+        desc:{pt:"Alecrim, alho e sal grosso", en:"Rosemary, garlic, coarse salt", es:"Romero, ajo, sal gruesa"}, price:"R$ 24" }
+    ]
+  },
+  {
+    id: "vegana",
+    name: "Verde & Cia Vegana",
+    type: "vegana",
+    typeLabel: {pt:"Vegana / Vegetariana", en:"Vegan / Veggie", es:"Vegana"},
+    address: "R. Sergipe, 333 — Savassi",
+    coords: [-19.9368, -43.9335],
+    rating: 4.6, band: false,
+    photos: [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=900",
+      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=900",
+      "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=900"
+    ],
+    desc: {pt:"Pratos coloridos, proteína vegetal e sobremesas sem lactose num espaço iluminado.",
+           en:"Colorful dishes, plant protein and lactose-free desserts in a bright space.",
+           es:"Platos coloridos, proteína vegetal y postres sin lactosa en espacio luminoso."},
+    menu: [
+      { name:{pt:"Bowl do chef", en:"Chef's bowl", es:"Bowl del chef"},
+        desc:{pt:"Quinoa, legumes assados, grão-de-bico", en:"Quinoa, roasted veg, chickpeas", es:"Quinoa, verduras asadas, garbanzos"}, price:"R$ 44" },
+      { name:{pt:"Brownie de cacau", en:"Cocoa brownie", es:"Brownie de cacao"},
+        desc:{pt:"Sem glúten e sem lactose", en:"Gluten & lactose free", es:"Sin gluten ni lactosa"}, price:"R$ 18" }
+    ]
+  },
+  {
+    id: "bistro",
+    name: "Bistrô da Praça",
+    type: "bistro",
+    typeLabel: {pt:"Bistrô / Contemporâneo", en:"Bistro / Contemporary", es:"Bistró / Contemporáneo"},
+    address: "Pç. da Liberdade, 90 — Funcionários",
+    coords: [-19.9309, -43.9371],
+    rating: 4.7, band: true,
+    photos: [
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=900",
+      "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=900",
+      "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=900"
+    ],
+    desc: {pt:"Pratos autorais com toque francês, carta de vinhos e jazz ao vivo nas quintas.",
+           en:"Signature dishes with French touch, wine list and live jazz on Thursdays.",
+           es:"Platos de autor con toque francés, carta de vinos y jazz los jueves."},
+    menu: [
+      { name:{pt:"Magret de pato", en:"Duck magret", es:"Magret de pato"},
+        desc:{pt:"Redução de vinho do Porto e batata gratinada", en:"Port reduction, potato gratin", es:"Reducción de Oporto y gratén"}, price:"R$ 112" },
+      { name:{pt:"Crème brûlée", en:"Crème brûlée", es:"Crème brûlée"},
+        desc:{pt:"Caramelo queimado na hora", en:"Fresh burnt caramel", es:"Caramelo quemado al momento"}, price:"R$ 28" }
+    ]
+  }
+];
+
+const RECENT_ADDITIONS = [
+  "Bistrô da Praça — Funcionários",
+  "Empório Mineiro — Santa Tereza",
+  "Casa do Hambúrguer Artesanal — Funcionários",
+  "Verde & Cia Vegana — Savassi"
+];
+
+/* ---------- FICTIONAL REVIEWS (seed) ---------- */
+const SEED_REVIEWS = [
+  { restaurantId: "cantina", author: "Marina R.", rating: 5, text: "O ragù da casa é absurdo! Vale cada centavo, ambiente super romântico.", date: "há 2 dias" },
+  { restaurantId: "cantina", author: "João P.",  rating: 4, text: "Massas excelentes, mas esperei 40 min numa sexta à noite. Reserve!", date: "há 1 semana" },
+  { restaurantId: "sushi",   author: "Camila A.", rating: 5, text: "Sashimi fresquíssimo e combinados muito bem montados. Atendimento 10!", date: "há 3 dias" },
+  { restaurantId: "sushi",   author: "Bruno L.",  rating: 4, text: "Ambiente super limpo e silencioso. Preço justo pelo executivo do almoço.", date: "há 5 dias" },
+  { restaurantId: "churrasco", author: "Renata S.", rating: 5, text: "Picanha na brasa perfeita. Música ao vivo deu o toque final 🔥", date: "há 1 dia" },
+  { restaurantId: "churrasco", author: "Felipe M.", rating: 5, text: "O melhor rodízio de BH na Pampulha. Levei a família toda e ninguém reclamou.", date: "há 4 dias" },
+  { restaurantId: "bar",     author: "Tati C.",  rating: 5, text: "Torresmo maravilhoso e a cerveja é sempre geladinha. Samba bom demais no sábado!", date: "há 6 dias" },
+  { restaurantId: "bar",     author: "Gustavo V.", rating: 4, text: "Ambiente cheio, mas o atendimento dá conta. Bom pra descontrair com os amigos.", date: "há 2 semanas" },
+  { restaurantId: "frutos",  author: "Luciana B.", rating: 5, text: "Moqueca de camarão generosa e muito saborosa. Peixe fresquíssimo.", date: "há 3 dias" },
+  { restaurantId: "hamburguer", author: "Pedro H.", rating: 5, text: "Burger Mineiro com queijo canastra é uma viagem. Batata rústica no ponto certo.", date: "há 1 dia" },
+  { restaurantId: "vegana",  author: "Ana Clara",  rating: 5, text: "Bowl do chef lindíssimo e saboroso. Brownie sem lactose perfeito!", date: "há 2 dias" },
+  { restaurantId: "bistro",  author: "Marcelo T.", rating: 5, text: "Magret de pato impecável. Jazz ao vivo deixou a noite memorável.", date: "há 4 dias" }
+];
+
+/* ---------- I18N ---------- */
+const I18N = {
+  pt: {
+    "tagline": "Descubra restaurantes em Belo Horizonte",
+    "or": "ou",
+    "login.title": "Entrar na sua conta",
+    "login.sub": "Use suas credenciais para continuar.",
+    "login.cta": "Entrar",
+    "login.no_account": "Não tem uma conta?",
+    "login.signup": "Cadastre-se",
+    "login.demo": "Entrar como convidado",
+    "field.email": "E-mail", "field.password": "Senha", "field.name": "Nome completo",
+    "signup.title": "Criar sua conta", "signup.sub": "Leva menos de 30 segundos.",
+    "signup.cta": "Criar conta", "signup.have_account": "Já tem conta?", "signup.login": "Entrar",
+    "signup.pwd_hint": "Mínimo 4 caracteres",
+    "signup.visual_title": "Faça parte da comunidade", "signup.visual_sub": "Salve favoritos, envie feedbacks e descubra novos sabores.",
+    "visual.title": "Saboreie BH", "visual.sub": "Uma curadoria afetiva dos melhores lugares da cidade.",
+    "visual.f1": "Mapa em cada restaurante", "visual.f2": "Avaliações reais da comunidade",
+    "visual.f3": "Menu em PT, EN e ES", "visual.f4": "Ambiente com música ao vivo",
+    "nav.home": "Início", "nav.feedback": "Feedback", "nav.about": "Sobre", "nav.profile": "Perfil", "nav.logout": "Sair",
+    "hero.eye": "Semana 6 • Versão responsiva",
+    "hero.title": "Descubra <em>sabores</em> autênticos de Belo Horizonte",
+    "hero.sub": "Fotos, mapas, cardápios traduzidos, música ao vivo e avaliações reais — tudo em um só lugar.",
+    "grid.title": "Restaurantes em destaque",
+    "recent.title": "Adicionados recentemente",
+    "detail.back": "Voltar",
+    "detail.menu": "Cardápio", "detail.location": "Localização", "detail.info": "Informações", "detail.music": "Música ao vivo",
+    "detail.send_fb": "Enviar feedback",
+    "fb.eye": "Comunidade SaborBH", "fb.title": "Feedbacks & avaliações",
+    "fb.sub": "Veja o que estão dizendo sobre cada restaurante e deixe sua avaliação com estrelas.",
+    "fb.pick": "Escolha o restaurante:", "fb.leave": "Deixe sua avaliação",
+    "fb.type": "Tipo de culinária", "fb.your_rating": "Sua nota",
+    "fb.comment": "Seu comentário", "fb.submit": "Enviar avaliação",
+    "fb.all_reviews": "O que estão dizendo",
+    "fb.success": "Obrigado! Sua avaliação foi enviada.",
+    "fb.err_rating": "Escolha uma nota de 1 a 5 estrelas.",
+    "fb.err_comment": "Escreva um comentário antes de enviar.",
+    "profile.visits":"visitas","profile.reviews":"avaliações","profile.photos":"fotos",
+    "profile.tab.visits":"Frequentados","profile.tab.reviews":"Meus feedbacks","profile.tab.photos":"Fotos",
+    "profile.empty_visits":"Você ainda não visitou nenhum restaurante. Vá até a página inicial e clique em \"Detalhes\" para marcar uma visita.",
+    "profile.empty_reviews":"Você ainda não enviou nenhum feedback.",
+    "profile.empty_photos":"Sem fotos por aqui ainda.",
+    "about.title":"Sobre o projeto", "about.sub":"Uma plataforma criada para conectar pessoas aos melhores sabores da capital mineira.",
+    "footer.made":"Feito com sabor para a Semana 6 📚",
+    "login.err":"E-mail ou senha incorretos.",
+    "signup.err_email":"Este e-mail já está cadastrado.",
+    "signup.err_fields":"Preencha todos os campos corretamente."
+  },
+  en: {
+    "tagline": "Discover restaurants in Belo Horizonte",
+    "or": "or",
+    "login.title": "Sign in to your account", "login.sub": "Use your credentials to continue.",
+    "login.cta": "Sign in", "login.no_account": "Don't have an account?",
+    "login.signup": "Sign up", "login.demo": "Continue as guest",
+    "field.email": "Email", "field.password": "Password", "field.name": "Full name",
+    "signup.title": "Create your account", "signup.sub": "Takes less than 30 seconds.",
+    "signup.cta": "Create account", "signup.have_account": "Already have an account?", "signup.login": "Sign in",
+    "signup.pwd_hint": "Minimum 4 characters",
+    "signup.visual_title": "Join the community", "signup.visual_sub": "Save favorites, leave feedback and discover new flavors.",
+    "visual.title": "Taste BH", "visual.sub": "A curated list of the best places in town.",
+    "visual.f1": "Map on every restaurant", "visual.f2": "Real community reviews",
+    "visual.f3": "Menu in PT, EN and ES", "visual.f4": "Live music ambience",
+    "nav.home": "Home", "nav.feedback": "Feedback", "nav.about": "About", "nav.profile": "Profile", "nav.logout": "Sign out",
+    "hero.eye": "Week 6 • Responsive edition",
+    "hero.title": "Discover <em>authentic flavors</em> of Belo Horizonte",
+    "hero.sub": "Photos, maps, translated menus, live music and real reviews — all in one place.",
+    "grid.title": "Featured restaurants",
+    "recent.title": "Recently added",
+    "detail.back": "Back",
+    "detail.menu": "Menu", "detail.location": "Location", "detail.info": "Info", "detail.music": "Live music",
+    "detail.send_fb": "Leave feedback",
+    "fb.eye": "SaborBH community", "fb.title": "Feedback & reviews",
+    "fb.sub": "See what people are saying and leave your star rating.",
+    "fb.pick": "Pick the restaurant:", "fb.leave": "Leave your review",
+    "fb.type": "Cuisine type", "fb.your_rating": "Your rating",
+    "fb.comment": "Your comment", "fb.submit": "Submit review",
+    "fb.all_reviews": "What people are saying",
+    "fb.success": "Thanks! Your review has been submitted.",
+    "fb.err_rating": "Please choose 1–5 stars.", "fb.err_comment": "Write a comment before submitting.",
+    "profile.visits":"visits","profile.reviews":"reviews","profile.photos":"photos",
+    "profile.tab.visits":"Visited","profile.tab.reviews":"My reviews","profile.tab.photos":"Photos",
+    "profile.empty_visits":"You haven't visited any restaurant yet. Go to the home page and click \"Details\" to register a visit.",
+    "profile.empty_reviews":"You haven't submitted any feedback yet.",
+    "profile.empty_photos":"No photos here yet.",
+    "about.title":"About the project", "about.sub":"A platform to connect people with the best flavors of Belo Horizonte.",
+    "footer.made":"Made with flavor for Week 6 📚",
+    "login.err":"Wrong email or password.",
+    "signup.err_email":"This email is already registered.",
+    "signup.err_fields":"Please fill all fields correctly."
+  },
+  es: {
+    "tagline": "Descubre restaurantes en Belo Horizonte",
+    "or": "o",
+    "login.title": "Inicia sesión", "login.sub": "Usa tus credenciales para continuar.",
+    "login.cta": "Entrar", "login.no_account": "¿No tienes cuenta?",
+    "login.signup": "Regístrate", "login.demo": "Entrar como invitado",
+    "field.email": "Correo", "field.password": "Contraseña", "field.name": "Nombre completo",
+    "signup.title": "Crea tu cuenta", "signup.sub": "Toma menos de 30 segundos.",
+    "signup.cta": "Crear cuenta", "signup.have_account": "¿Ya tienes cuenta?", "signup.login": "Entrar",
+    "signup.pwd_hint": "Mínimo 4 caracteres",
+    "signup.visual_title": "Únete a la comunidad", "signup.visual_sub": "Guarda favoritos, deja opiniones y descubre nuevos sabores.",
+    "visual.title": "Saborea BH", "visual.sub": "Una selección de los mejores lugares de la ciudad.",
+    "visual.f1": "Mapa en cada restaurante", "visual.f2": "Opiniones reales de la comunidad",
+    "visual.f3": "Menú en PT, EN y ES", "visual.f4": "Ambiente con música en vivo",
+    "nav.home": "Inicio", "nav.feedback": "Feedback", "nav.about": "Acerca", "nav.profile": "Perfil", "nav.logout": "Salir",
+    "hero.eye": "Semana 6 • Edición responsiva",
+    "hero.title": "Descubre <em>sabores auténticos</em> de Belo Horizonte",
+    "hero.sub": "Fotos, mapas, menús traducidos, música en vivo y opiniones reales — todo en un solo lugar.",
+    "grid.title": "Restaurantes destacados",
+    "recent.title": "Añadidos recientemente",
+    "detail.back": "Volver",
+    "detail.menu": "Menú", "detail.location": "Ubicación", "detail.info": "Información", "detail.music": "Música en vivo",
+    "detail.send_fb": "Dejar opinión",
+    "fb.eye": "Comunidad SaborBH", "fb.title": "Feedback y opiniones",
+    "fb.sub": "Mira lo que dicen y deja tu valoración con estrellas.",
+    "fb.pick": "Elige el restaurante:", "fb.leave": "Deja tu opinión",
+    "fb.type": "Tipo de cocina", "fb.your_rating": "Tu nota",
+    "fb.comment": "Tu comentario", "fb.submit": "Enviar opinión",
+    "fb.all_reviews": "Lo que dicen",
+    "fb.success": "¡Gracias! Tu opinión fue enviada.",
+    "fb.err_rating": "Elige una nota de 1 a 5 estrellas.", "fb.err_comment": "Escribe un comentario antes de enviar.",
+    "profile.visits":"visitas","profile.reviews":"opiniones","profile.photos":"fotos",
+    "profile.tab.visits":"Visitados","profile.tab.reviews":"Mis opiniones","profile.tab.photos":"Fotos",
+    "profile.empty_visits":"Aún no has visitado ningún restaurante. Ve a la página inicial y pulsa \"Detalles\" para registrar una visita.",
+    "profile.empty_reviews":"Aún no has enviado opiniones.",
+    "profile.empty_photos":"Aún no hay fotos.",
+    "about.title":"Sobre el proyecto", "about.sub":"Una plataforma para conectar a las personas con los mejores sabores de Belo Horizonte.",
+    "footer.made":"Hecho con sabor para la Semana 6 📚",
+    "login.err":"Correo o contraseña incorrectos.",
+    "signup.err_email":"Este correo ya está registrado.",
+    "signup.err_fields":"Rellena todos los campos correctamente."
+  }
+};
+
+/* ---------- STORAGE HELPERS ---------- */
+const LS = {
+  get: (k, def=null) => { try { return JSON.parse(localStorage.getItem(k)) ?? def; } catch { return def; } },
+  set: (k, v) => localStorage.setItem(k, JSON.stringify(v)),
+  remove: (k) => localStorage.removeItem(k)
+};
+
+function currentUser() { return LS.get("sabor_user"); }
+function requireAuth() {
+  if (!currentUser()) { window.location.href = "index.html"; return false; }
+  return true;
+}
+
+/* ---------- LANG ---------- */
+function getLang() { return LS.get("sabor_lang", "pt"); }
+function setLang(lang) {
+  LS.set("sabor_lang", lang);
+  document.documentElement.setAttribute("lang", lang === "pt" ? "pt-BR" : lang);
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const k = el.getAttribute("data-i18n");
+    const t = (I18N[lang] && I18N[lang][k]) || I18N.pt[k] || k;
+    if (/<.*>/.test(t)) el.innerHTML = t; else el.textContent = t;
+  });
+  document.querySelectorAll(".lang-btn").forEach(b => {
+    b.classList.toggle("active", b.getAttribute("data-lang") === lang);
+  });
+}
+function tr(key) { return (I18N[getLang()] && I18N[getLang()][key]) || I18N.pt[key] || key; }
+
+function attachLangSwitches() {
+  document.querySelectorAll(".lang-btn").forEach(b => {
+    b.addEventListener("click", () => setLang(b.getAttribute("data-lang")));
+  });
+}
+
+/* ---------- COMMON INIT ---------- */
+function initCommon() {
+  attachLangSwitches();
+  setLang(getLang());
+  const out = document.getElementById("logoutBtn");
+  if (out) out.addEventListener("click", () => { LS.remove("sabor_user"); window.location.href = "index.html"; });
+  // Guard pages that require auth
+  const file = window.location.pathname.split("/").pop() || "index.html";
+  const guarded = ["home.html","feedback.html","perfil.html","restaurante.html","sobre.html"];
+  if (guarded.includes(file)) requireAuth();
+}
+
+/* ---------- LOGIN ---------- */
+function initLogin() {
+  attachLangSwitches();
+  setLang(getLang());
+  if (currentUser()) { window.location.href = "home.html"; return; }
+
+  const form = document.getElementById("loginForm");
+  const err = document.getElementById("loginError");
+  const togglePass = document.querySelector(".toggle-pass");
+  const pwdInput = document.getElementById("loginPassword");
+
+  if (togglePass) togglePass.addEventListener("click", () => {
+    pwdInput.type = pwdInput.type === "password" ? "text" : "password";
+    togglePass.innerHTML = pwdInput.type === "password" ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    err.classList.add("d-none");
+    const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+    const pwd = document.getElementById("loginPassword").value;
+    const users = LS.get("sabor_users", []);
+    const u = users.find(x => x.email === email && x.password === pwd);
+    if (!u) { err.textContent = tr("login.err"); err.classList.remove("d-none"); return; }
+    LS.set("sabor_user", { name: u.name, email: u.email });
+    window.location.href = "home.html";
+  });
+
+  document.getElementById("demoLogin").addEventListener("click", () => {
+    LS.set("sabor_user", { name: "Convidado", email: "guest@saborbh.app", guest: true });
+    window.location.href = "home.html";
+  });
+}
+
+/* ---------- SIGNUP ---------- */
+function initSignup() {
+  attachLangSwitches();
+  setLang(getLang());
+  const form = document.getElementById("signupForm");
+  const err = document.getElementById("signupError");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    err.classList.add("d-none");
+    const name = document.getElementById("signupName").value.trim();
+    const email = document.getElementById("signupEmail").value.trim().toLowerCase();
+    const pwd = document.getElementById("signupPassword").value;
+    if (!name || !email || pwd.length < 4) {
+      err.textContent = tr("signup.err_fields"); err.classList.remove("d-none"); return;
+    }
+    const users = LS.get("sabor_users", []);
+    if (users.find(u => u.email === email)) {
+      err.textContent = tr("signup.err_email"); err.classList.remove("d-none"); return;
+    }
+    users.push({ name, email, password: pwd });
+    LS.set("sabor_users", users);
+    LS.set("sabor_user", { name, email });
+    window.location.href = "home.html";
+  });
+}
+
+/* ---------- STAR RENDERING ---------- */
+function renderStars(rating) {
+  const full = Math.floor(rating);
+  const half = rating - full >= 0.5;
+  let html = "";
+  for (let i=0;i<full;i++) html += '<i class="fa-solid fa-star"></i>';
+  if (half) html += '<i class="fa-solid fa-star-half-stroke"></i>';
+  for (let i=full+(half?1:0); i<5; i++) html += '<i class="fa-regular fa-star"></i>';
+  return html;
+}
+
+/* ---------- HOME ---------- */
+function initHome() {
+  initCommon();
+  const lang = getLang();
+  const grid = document.getElementById("restaurantGrid");
+  const recent = document.getElementById("recentList");
+  const chips = document.getElementById("typeChips");
+  const countEl = document.getElementById("resultCount");
+  const searchForm = document.getElementById("searchForm");
+  const searchInput = document.getElementById("searchInput");
+
+  let activeFilter = "all";
+  let searchTerm = "";
+
+  // build chips
+  const types = [...new Set(RESTAURANTS.map(r => r.type))];
+  const chipLabels = { pt:{all:"Todos"}, en:{all:"All"}, es:{all:"Todos"} };
+  chips.innerHTML = `<button class="chip active" data-type="all">${chipLabels[lang].all}</button>` +
+    types.map(t => {
+      const sample = RESTAURANTS.find(r => r.type === t);
+      return `<button class="chip" data-type="${t}">${sample.typeLabel[lang]}</button>`;
+    }).join("");
+
+  chips.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => {
+    chips.querySelectorAll(".chip").forEach(x => x.classList.remove("active"));
+    c.classList.add("active");
+    activeFilter = c.getAttribute("data-type");
+    render();
+  }));
+
+  function render() {
+    const l = getLang();
+    const list = RESTAURANTS.filter(r => {
+      const matchesType = activeFilter === "all" || r.type === activeFilter;
+      const hay = (r.name + " " + r.typeLabel[l] + " " + r.address).toLowerCase();
+      const matchesSearch = !searchTerm || hay.includes(searchTerm);
+      return matchesType && matchesSearch;
+    });
+    countEl.textContent = list.length + " " + (list.length === 1 ? "resultado" : "resultados");
+    grid.innerHTML = list.map(r => cardHTML(r, l)).join("") ||
+      `<div class="col-12 text-center py-5 text-muted-soft">Nenhum restaurante encontrado.</div>`;
+    // init bootstrap carousels
+    grid.querySelectorAll(".carousel").forEach(el => new bootstrap.Carousel(el, { interval: false }));
+  }
+
+  function cardHTML(r, l) {
+    const musicTxt = r.band ? tr("detail.music") : (l==="en"?"No live music":l==="es"?"Sin música en vivo":"Sem música ao vivo");
+    return `
+    <div class="col-12 col-md-6 col-xl-4">
+      <article class="r-card" data-testid="r-card-${r.id}">
+        <div class="card-img-wrap position-relative">
+          <span class="cat-badge cat-${r.type}">${r.typeLabel[l]}</span>
+          <span class="music-pill ${r.band?"has":""}">
+            <i class="fa-solid ${r.band?"fa-music":"fa-volume-xmark"}"></i> ${musicTxt}
+          </span>
+          <div id="car-${r.id}" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              ${r.photos.map((p,i)=>`<div class="carousel-item ${i===0?"active":""}"><img src="${p}" alt="${r.name}"/></div>`).join("")}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#car-${r.id}" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#car-${r.id}" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+          </div>
+        </div>
+        <div class="r-body">
+          <h4 class="r-name">${r.name}</h4>
+          <p class="r-address"><i class="fa-solid fa-location-dot"></i> ${r.address}</p>
+          <div class="r-stars">${renderStars(r.rating)}<span class="rnum">${r.rating.toFixed(1)}</span></div>
+          <p class="r-desc">${r.desc[l]}</p>
+          <div class="r-actions">
+            <a class="btn btn-brand" href="/restaurante.html?id=${r.id}" data-testid="btn-details-${r.id}"><i class="fa-solid fa-circle-info me-1"></i>Detalhes</a>
+            <a class="btn btn-outline-brick" href="/feedback.html?id=${r.id}" data-testid="btn-feedback-${r.id}"><i class="fa-regular fa-comment-dots me-1"></i>Feedback</a>
+          </div>
+        </div>
+      </article>
+    </div>`;
+  }
+
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    searchTerm = searchInput.value.trim().toLowerCase();
+    render();
+  });
+  searchInput.addEventListener("input", (e) => { searchTerm = e.target.value.trim().toLowerCase(); render(); });
+
+  recent.innerHTML = RECENT_ADDITIONS.map(x => `<li><i class="fa-solid fa-sparkles text-warning"></i> ${x}</li>`).join("");
+
+  render();
+
+  // re-render on lang switch
+  document.querySelectorAll(".lang-btn").forEach(b => b.addEventListener("click", () => render()));
+}
+
+/* ---------- DETAIL ---------- */
+function initDetail() {
+  initCommon();
+  const id = new URLSearchParams(window.location.search).get("id");
+  const r = RESTAURANTS.find(x => x.id === id) || RESTAURANTS[0];
+  const l = getLang();
+  const user = currentUser();
+
+  // register visit
+  if (user) {
+    const visits = LS.get("sabor_visits_"+user.email, []);
+    if (!visits.includes(r.id)) { visits.push(r.id); LS.set("sabor_visits_"+user.email, visits); }
+  }
+
+  const container = document.getElementById("detailContent");
+  container.innerHTML = `
+    <div class="detail-hero">
+      <div id="carDetail" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-inner">
+          ${r.photos.map((p,i)=>`<div class="carousel-item ${i===0?"active":""}"><img src="${p}" alt="${r.name}"/></div>`).join("")}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carDetail" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carDetail" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+        <div class="carousel-indicators">
+          ${r.photos.map((_,i)=>`<button type="button" data-bs-target="#carDetail" data-bs-slide-to="${i}" ${i===0?"class='active'":""}></button>`).join("")}
+        </div>
+      </div>
+      <div class="detail-meta">
+        <div class="d-flex justify-content-between flex-wrap gap-2">
+          <h1>${r.name}</h1>
+          <span class="type-badge-display">${r.typeLabel[l]}</span>
+        </div>
+        <div class="stars">${renderStars(r.rating)} <span class="rnum ms-2">${r.rating.toFixed(1)}</span></div>
+        <div class="meta-row">
+          <span class="meta-chip"><i class="fa-solid fa-location-dot"></i> ${r.address}</span>
+          <span class="meta-chip ${r.band?"yes":"no"}"><i class="fa-solid ${r.band?"fa-music":"fa-volume-xmark"}"></i>
+            ${r.band ? (l==="en"?"Live music":l==="es"?"Música en vivo":"Música ao vivo") : (l==="en"?"No live music":l==="es"?"Sin música en vivo":"Sem música ao vivo")}
+          </span>
+          <span class="meta-chip"><i class="fa-solid fa-utensils"></i> ${r.typeLabel[l]}</span>
+        </div>
+        <p class="text-muted-soft">${r.desc[l]}</p>
+        <a href="/feedback.html?id=${r.id}" class="btn btn-brand mt-2" data-testid="detail-fb-btn"><i class="fa-regular fa-comment-dots me-2"></i>${tr("detail.send_fb")}</a>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="info-card" data-testid="menu-card">
+        <h3><i class="fa-solid fa-book-open"></i> ${tr("detail.menu")}</h3>
+        <ul class="menu-list">
+          ${r.menu.map(m => `
+            <li>
+              <div>
+                <div class="item-name">${m.name[l]}</div>
+                <div class="item-desc">${m.desc[l]}</div>
+              </div>
+              <div class="item-price">${m.price}</div>
+            </li>`).join("")}
+        </ul>
+      </div>
+      <div class="info-card" data-testid="map-card">
+        <h3><i class="fa-solid fa-map-location-dot"></i> ${tr("detail.location")}</h3>
+        <div id="mapBox"></div>
+        <p class="text-muted-soft mt-2 mb-0"><i class="fa-solid fa-location-dot me-1"></i>${r.address}</p>
+      </div>
+    </div>
+  `;
+
+  // init carousel
+  new bootstrap.Carousel(document.getElementById("carDetail"), { interval: 5000 });
+
+  // init leaflet map
+  const map = L.map("mapBox", { scrollWheelZoom: false }).setView(r.coords, 16);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
+  const redIcon = L.divIcon({
+    className: "sabor-marker",
+    html: `<div style="background:linear-gradient(135deg,#ff7a3d,#c0392b);width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 4px 12px rgba(0,0,0,.3);border:3px solid #fff;display:grid;place-items:center"><i class="fa-solid fa-utensils" style="color:#fff;transform:rotate(45deg)"></i></div>`,
+    iconSize: [34,34], iconAnchor: [17, 34]
+  });
+  L.marker(r.coords, { icon: redIcon }).addTo(map).bindPopup(`<strong>${r.name}</strong><br>${r.address}`).openPopup();
+}
+
+/* ---------- FEEDBACK ---------- */
+function initFeedback() {
+  initCommon();
+  const sel = document.getElementById("fbRestaurant");
+  const typeDisp = document.getElementById("typeDisplay");
+  const starsBox = document.getElementById("fbStars");
+  const ratingLabel = document.getElementById("ratingLabel");
+  const errBox = document.getElementById("fbError");
+  const okBox = document.getElementById("fbSuccess");
+  const commentEl = document.getElementById("fbComment");
+  const submitBtn = document.getElementById("fbSubmit");
+  const list = document.getElementById("reviewsList");
+
+  let rating = 0;
+
+  function renderSelect() {
+    const l = getLang();
+    sel.innerHTML = RESTAURANTS.map(r => `<option value="${r.id}">${r.name} · ${r.typeLabel[l]}</option>`).join("");
+    const urlId = new URLSearchParams(window.location.search).get("id");
+    if (urlId && RESTAURANTS.find(x=>x.id===urlId)) sel.value = urlId;
+    onSelect();
+  }
+
+  function onSelect() {
+    const r = RESTAURANTS.find(x => x.id === sel.value);
+    typeDisp.innerHTML = `<i class="fa-solid fa-bowl-food"></i> ${r.typeLabel[getLang()]}`;
+    renderReviews();
+  }
+
+  function setRating(v) {
+    rating = v;
+    starsBox.querySelectorAll(".star").forEach(s => {
+      const val = +s.getAttribute("data-value");
+      s.classList.toggle("active", val <= rating);
+      s.classList.toggle("fa-solid", val <= rating);
+      s.classList.toggle("fa-regular", val > rating);
+    });
+    ratingLabel.textContent = `${rating} / 5`;
+  }
+
+  starsBox.querySelectorAll(".star").forEach(s => {
+    s.addEventListener("click", () => setRating(+s.getAttribute("data-value")));
+    s.addEventListener("mouseenter", () => {
+      const v = +s.getAttribute("data-value");
+      starsBox.querySelectorAll(".star").forEach(x => {
+        const xv = +x.getAttribute("data-value");
+        x.classList.toggle("active", xv <= v);
+        x.classList.toggle("fa-solid", xv <= v);
+        x.classList.toggle("fa-regular", xv > v);
+      });
+    });
+    s.addEventListener("mouseleave", () => setRating(rating));
+  });
+
+  sel.addEventListener("change", onSelect);
+
+  submitBtn.addEventListener("click", () => {
+    errBox.classList.add("d-none"); okBox.classList.add("d-none");
+    if (rating < 1) { errBox.textContent = tr("fb.err_rating"); errBox.classList.remove("d-none"); return; }
+    const comment = commentEl.value.trim();
+    if (!comment) { errBox.textContent = tr("fb.err_comment"); errBox.classList.remove("d-none"); return; }
+    const user = currentUser() || { name: "Convidado", email: "guest" };
+    const userReviews = LS.get("sabor_reviews", []);
+    userReviews.push({
+      restaurantId: sel.value,
+      author: user.name,
+      email: user.email,
+      rating, text: comment,
+      date: new Date().toLocaleDateString(getLang() === "pt" ? "pt-BR" : (getLang()==="es"?"es-ES":"en-US"), { day:"2-digit", month:"short", year:"numeric" })
+    });
+    LS.set("sabor_reviews", userReviews);
+    okBox.textContent = tr("fb.success");
+    okBox.classList.remove("d-none");
+    commentEl.value = ""; setRating(0);
+    renderReviews();
+  });
+
+  function renderReviews() {
+    const l = getLang();
+    const userReviews = LS.get("sabor_reviews", []);
+    const all = [
+      ...userReviews.filter(r => r.restaurantId === sel.value),
+      ...SEED_REVIEWS.filter(r => r.restaurantId === sel.value)
+    ];
+    if (!all.length) {
+      list.innerHTML = `<div class="text-muted-soft text-center py-4">${l==="en"?"No reviews yet. Be the first!":l==="es"?"Sin opiniones aún. ¡Sé el primero!":"Sem avaliações ainda. Seja o primeiro!"}</div>`;
+      return;
+    }
+    list.innerHTML = all.map(rv => {
+      const rest = RESTAURANTS.find(x => x.id === rv.restaurantId);
+      const initial = (rv.author || "?").charAt(0).toUpperCase();
+      return `
+        <article class="review-card" data-testid="review-card">
+          <div class="review-head">
+            <div class="review-avatar">${initial}</div>
+            <div>
+              <p class="review-author">${rv.author}</p>
+              <span class="review-meta">${rv.date || ""}</span>
+            </div>
+            <div class="review-stars">${renderStars(rv.rating)}</div>
+          </div>
+          <p class="review-text">${rv.text}</p>
+          <span class="review-restaurant"><i class="fa-solid fa-utensils me-1"></i>${rest ? rest.name + " · " + rest.typeLabel[l] : ""}</span>
+        </article>`;
+    }).join("");
+  }
+
+  renderSelect();
+  document.querySelectorAll(".lang-btn").forEach(b => b.addEventListener("click", () => { renderSelect(); }));
+}
+
+/* ---------- PROFILE ---------- */
+function initProfile() {
+  initCommon();
+  const user = currentUser();
+  if (!user) return;
+  const l = getLang();
+
+  document.getElementById("profileName").textContent = user.name;
+  document.getElementById("profileEmail").textContent = user.email;
+  document.getElementById("profileAvatar").textContent = (user.name || "?").charAt(0).toUpperCase();
+
+  const visits = LS.get("sabor_visits_"+user.email, []);
+  const allReviews = LS.get("sabor_reviews", []);
+  const myReviews = allReviews.filter(r => r.email === user.email);
+
+  const visitedRests = visits.map(id => RESTAURANTS.find(r => r.id === id)).filter(Boolean);
+  const allPhotos = visitedRests.flatMap(r => r.photos);
+
+  document.getElementById("statVisits").textContent = visits.length;
+  document.getElementById("statReviews").textContent = myReviews.length;
+  document.getElementById("statPhotos").textContent = allPhotos.length;
+
+  const vGrid = document.getElementById("visitsGrid");
+  vGrid.innerHTML = visitedRests.length
+    ? visitedRests.map(r => `
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="r-card">
+            <div class="card-img-wrap position-relative">
+              <span class="cat-badge cat-${r.type}">${r.typeLabel[l]}</span>
+              <img src="${r.photos[0]}" alt="${r.name}" style="width:100%;aspect-ratio:16/10;object-fit:cover"/>
+            </div>
+            <div class="r-body">
+              <h4 class="r-name">${r.name}</h4>
+              <p class="r-address"><i class="fa-solid fa-location-dot"></i> ${r.address}</p>
+              <div class="r-stars">${renderStars(r.rating)}<span class="rnum">${r.rating.toFixed(1)}</span></div>
+              <a class="btn btn-outline-brick mt-auto" href="/restaurante.html?id=${r.id}"><i class="fa-solid fa-eye me-1"></i>Ver</a>
+            </div>
+          </article>
+        </div>`).join("")
+    : `<div class="col-12 text-center text-muted-soft py-5">${tr("profile.empty_visits")}</div>`;
+
+  const rBox = document.getElementById("myReviews");
+  rBox.innerHTML = myReviews.length
+    ? `<div class="reviews-list">${myReviews.map(rv => {
+        const r = RESTAURANTS.find(x => x.id === rv.restaurantId);
+        const initial = (rv.author || "?").charAt(0).toUpperCase();
+        return `<article class="review-card">
+          <div class="review-head">
+            <div class="review-avatar">${initial}</div>
+            <div><p class="review-author">${rv.author}</p><span class="review-meta">${rv.date}</span></div>
+            <div class="review-stars">${renderStars(rv.rating)}</div>
+          </div>
+          <p class="review-text">${rv.text}</p>
+          <span class="review-restaurant"><i class="fa-solid fa-utensils me-1"></i>${r ? r.name : ""}</span>
+        </article>`;
+      }).join("")}</div>`
+    : `<div class="text-center text-muted-soft py-5">${tr("profile.empty_reviews")}</div>`;
+
+  const pGrid = document.getElementById("photosGrid");
+  pGrid.innerHTML = allPhotos.length
+    ? allPhotos.map(p => `<img src="${p}" alt="foto"/>`).join("")
+    : `<div class="text-muted-soft py-5 text-center w-100">${tr("profile.empty_photos")}</div>`;
+}

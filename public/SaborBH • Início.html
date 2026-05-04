@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)https://resto-review-hub-1.preview.emergentagent.com/home.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaborBH • Início</title>
+<link href="./SaborBH • Início_files/css2" rel="stylesheet">
+<link href="./SaborBH • Início_files/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="./SaborBH • Início_files/all.min.css">
+<link rel="stylesheet" href="./SaborBH • Início_files/style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="sabor-logo" viewBox="0 0 64 64">
+    <defs><lineargradient id="lg1" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ff7a3d"></stop><stop offset="1" stop-color="#c0392b"></stop></lineargradient></defs>
+    <circle cx="32" cy="32" r="30" fill="url(#lg1)"></circle>
+    <path d="M20 18c0 6 3 10 6 12v14a2 2 0 0 0 4 0V30c3-2 6-6 6-12 0-2-1-3-2-3s-2 1-2 3v6a1 1 0 0 1-2 0v-6c0-2-1-3-2-3s-2 1-2 3v6a1 1 0 0 1-2 0v-6c0-2-1-3-2-3s-2 1-2 3z" fill="#fff"></path>
+    <path d="M44 16c-3 1-6 5-6 11s2 9 4 9v8a2 2 0 0 0 4 0V16z" fill="#ffd27a"></path>
+  </symbol>
+</svg>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg top-nav sticky-top" data-testid="top-navbar">
+  <div class="container-fluid px-lg-4">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="https://resto-review-hub-1.preview.emergentagent.com/home.html">
+      <svg class="nav-logo"><use href="#sabor-logo"></use></svg>
+      <span class="brand-wordmark">Sabor<strong>BH</strong></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-expanded="false" data-testid="nav-toggle">
+      <i class="fa-solid fa-bars text-white"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link active" href="https://resto-review-hub-1.preview.emergentagent.com/home.html" data-i18n="nav.home" data-testid="nav-home">Início</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://resto-review-hub-1.preview.emergentagent.com/feedback.html" data-i18n="nav.feedback" data-testid="nav-feedback">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://resto-review-hub-1.preview.emergentagent.com/sobre.html" data-i18n="nav.about" data-testid="nav-about">Sobre</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://resto-review-hub-1.preview.emergentagent.com/perfil.html" data-i18n="nav.profile" data-testid="nav-profile">Perfil</a></li>
+        <li class="nav-item ms-lg-2">
+          <div class="lang-switch compact" data-testid="lang-switch">
+            <button type="button" class="lang-btn active" data-lang="pt">PT</button>
+            <button type="button" class="lang-btn" data-lang="en">EN</button>
+            <button type="button" class="lang-btn" data-lang="es">ES</button>
+          </div>
+        </li>
+        <li class="nav-item ms-lg-2">
+          <button id="logoutBtn" class="btn btn-sm btn-ghost-light" data-testid="logout-btn" data-i18n="nav.logout">Sair</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero-block">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <span class="hero-eyebrow" data-i18n="hero.eye">Semana 6 • Versão responsiva</span>
+        <h1 class="hero-title" data-i18n="hero.title">Descubra <em>sabores</em> autênticos de Belo Horizonte</h1>
+        <p class="hero-sub" data-i18n="hero.sub">Fotos, mapas, cardápios traduzidos, música ao vivo e avaliações reais — tudo em um só lugar.</p>
+        <form class="hero-search" id="searchForm" data-testid="search-form">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="searchInput" class="form-control" placeholder="Buscar por nome ou tipo (japonesa, massa, bar...)" data-testid="search-input">
+          <button class="btn btn-brand" type="submit" data-testid="search-submit">Buscar</button>
+        </form>
+        <div class="hero-chips mt-3" id="typeChips" data-testid="type-chips"><button class="chip active" data-type="all">Todos</button><button class="chip" data-type="massa">Massas / Italiana</button><button class="chip" data-type="japonesa">Japonesa</button><button class="chip" data-type="churrasco">Churrasco</button><button class="chip" data-type="bar">Bar / Petiscos</button><button class="chip" data-type="frutos">Frutos do Mar</button><button class="chip" data-type="hamburguer">Hambúrguer</button><button class="chip" data-type="vegana">Vegana / Vegetariana</button><button class="chip" data-type="bistro">Bistrô / Contemporâneo</button></div>
+      </div>
+      <div class="col-lg-5 d-none d-lg-block">
+        <div class="hero-card-deck" aria-hidden="true">
+          <img src="./SaborBH • Início_files/photo-1552566626-52f8b828add9" alt="" class="deck-1">
+          <img src="./SaborBH • Início_files/photo-1414235077428-338989a2e8c0" alt="" class="deck-2">
+          <img src="./SaborBH • Início_files/photo-1555396273-367ea4eb4db5" alt="" class="deck-3">
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- RESTAURANT GRID -->
+<section class="container my-5">
+  <div class="section-head mb-4">
+    <h2 class="section-title" data-i18n="grid.title">Restaurantes em destaque</h2>
+    <span class="text-muted-soft" id="resultCount" data-testid="result-count">8 resultados</span>
+  </div>
+  <div class="row g-4" id="restaurantGrid" data-testid="restaurant-grid">
+    <div class="col-12 col-md-6 col-xl-4">
+      <article class="r-card" data-testid="r-card-cantina">
+        <div class="card-img-wrap position-relative">
+          <span class="cat-badge cat-massa">Massas / Italiana</span>
+          <span class="music-pill has">
+            <i class="fa-solid fa-music"></i> Música ao vivo
+          </span>
+          <div id="car-cantina" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./SaborBH • Início_files/photo-1517248135467-4c7edcad34c4" alt="Cantina Bella Italia"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1473093295043-cdd812d0e601" alt="Cantina Bella Italia"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1551183053-bf91a1d81141" alt="Cantina Bella Italia"></div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#car-cantina" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#car-cantina" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+          </div>
+        </div>
+        <div class="r-body">
+          <h4 class="r-name">Cantina Bella Italia</h4>
+          <p class="r-address"><i class="fa-solid fa-location-dot"></i> R. Antônio de Albuquerque, 123 — Savassi</p>
+          <div class="r-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span class="rnum">4.8</span></div>
+          <p class="r-desc">Massas artesanais, risotos cremosos e ambiente acolhedor com música ao vivo às sextas.</p>
+          <div class="r-actions">
+            <a class="btn btn-brand" href="https://resto-review-hub-1.preview.emergentagent.com/restaurante.html?id=cantina" data-testid="btn-details-cantina"><i class="fa-solid fa-circle-info me-1"></i>Detalhes</a>
+            <a class="btn btn-outline-brick" href="https://resto-review-hub-1.preview.emergentagent.com/feedback.html?id=cantina" data-testid="btn-feedback-cantina"><i class="fa-regular fa-comment-dots me-1"></i>Feedback</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="col-12 col-md-6 col-xl-4">
+      <article class="r-card" data-testid="r-card-sushi">
+        <div class="card-img-wrap position-relative">
+          <span class="cat-badge cat-japonesa">Japonesa</span>
+          <span class="music-pill ">
+            <i class="fa-solid fa-volume-xmark"></i> Sem música ao vivo
+          </span>
+          <div id="car-sushi" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./SaborBH • Início_files/photo-1555396273-367ea4eb4db5(1)" alt="Sushi Zen Garden"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1579871494447-9811cf80d66c" alt="Sushi Zen Garden"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1617196034796-73dfa7b1fd56" alt="Sushi Zen Garden"></div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#car-sushi" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#car-sushi" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+          </div>
+        </div>
+        <div class="r-body">
+          <h4 class="r-name">Sushi Zen Garden</h4>
+          <p class="r-address"><i class="fa-solid fa-location-dot"></i> R. dos Inconfidentes, 456 — Lourdes</p>
+          <div class="r-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span class="rnum">4.6</span></div>
+          <p class="r-desc">Combinados frescos, sashimis premium e atendimento atento em espaço minimalista.</p>
+          <div class="r-actions">
+            <a class="btn btn-brand" href="https://resto-review-hub-1.preview.emergentagent.com/restaurante.html?id=sushi" data-testid="btn-details-sushi"><i class="fa-solid fa-circle-info me-1"></i>Detalhes</a>
+            <a class="btn btn-outline-brick" href="https://resto-review-hub-1.preview.emergentagent.com/feedback.html?id=sushi" data-testid="btn-feedback-sushi"><i class="fa-regular fa-comment-dots me-1"></i>Feedback</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="col-12 col-md-6 col-xl-4">
+      <article class="r-card" data-testid="r-card-churrasco">
+        <div class="card-img-wrap position-relative">
+          <span class="cat-badge cat-churrasco">Churrasco</span>
+          <span class="music-pill has">
+            <i class="fa-solid fa-music"></i> Música ao vivo
+          </span>
+          <div id="car-churrasco" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./SaborBH • Início_files/photo-1414235077428-338989a2e8c0(1)" alt="Churrascaria Fogo Gaúcho"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1558030006-450675393462" alt="Churrascaria Fogo Gaúcho"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1600891964599-f61ba0e24092" alt="Churrascaria Fogo Gaúcho"></div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#car-churrasco" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#car-churrasco" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+          </div>
+        </div>
+        <div class="r-body">
+          <h4 class="r-name">Churrascaria Fogo Gaúcho</h4>
+          <p class="r-address"><i class="fa-solid fa-location-dot"></i> Av. Portugal, 789 — Pampulha</p>
+          <div class="r-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span class="rnum">4.9</span></div>
+          <p class="r-desc">Rodízio completo com cortes nobres, buffet variado e músico ao vivo nas noites.</p>
+          <div class="r-actions">
+            <a class="btn btn-brand" href="https://resto-review-hub-1.preview.emergentagent.com/restaurante.html?id=churrasco" data-testid="btn-details-churrasco"><i class="fa-solid fa-circle-info me-1"></i>Detalhes</a>
+            <a class="btn btn-outline-brick" href="https://resto-review-hub-1.preview.emergentagent.com/feedback.html?id=churrasco" data-testid="btn-feedback-churrasco"><i class="fa-regular fa-comment-dots me-1"></i>Feedback</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="col-12 col-md-6 col-xl-4">
+      <article class="r-card" data-testid="r-card-bar">
+        <div class="card-img-wrap position-relative">
+          <span class="cat-badge cat-bar">Bar / Petiscos</span>
+          <span class="music-pill has">
+            <i class="fa-solid fa-music"></i> Música ao vivo
+          </span>
+          <div id="car-bar" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./SaborBH • Início_files/photo-1514933651103-005eec06c04b" alt="Boteco do Juca"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1566417713940-fe7c737a9ef2" alt="Boteco do Juca"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1572116469696-31de0f17cc34" alt="Boteco do Juca"></div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#car-bar" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#car-bar" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+          </div>
+        </div>
+        <div class="r-body">
+          <h4 class="r-name">Boteco do Juca</h4>
+          <p class="r-address"><i class="fa-solid fa-location-dot"></i> R. da Bahia, 1010 — Centro</p>
+          <div class="r-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><span class="rnum">4.4</span></div>
+          <p class="r-desc">Cerveja artesanal gelada, tira-gostos mineiros e samba ao vivo todo sábado.</p>
+          <div class="r-actions">
+            <a class="btn btn-brand" href="https://resto-review-hub-1.preview.emergentagent.com/restaurante.html?id=bar" data-testid="btn-details-bar"><i class="fa-solid fa-circle-info me-1"></i>Detalhes</a>
+            <a class="btn btn-outline-brick" href="https://resto-review-hub-1.preview.emergentagent.com/feedback.html?id=bar" data-testid="btn-feedback-bar"><i class="fa-regular fa-comment-dots me-1"></i>Feedback</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="col-12 col-md-6 col-xl-4">
+      <article class="r-card" data-testid="r-card-frutos">
+        <div class="card-img-wrap position-relative">
+          <span class="cat-badge cat-frutos">Frutos do Mar</span>
+          <span class="music-pill ">
+            <i class="fa-solid fa-volume-xmark"></i> Sem música ao vivo
+          </span>
+          <div id="car-frutos" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./SaborBH • Início_files/photo-1559339352-11d035aa65de" alt="Maré Alta Frutos do Mar"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1559847844-5315695dadae" alt="Maré Alta Frutos do Mar"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1607301405390-d831c242f59b" alt="Maré Alta Frutos do Mar"></div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#car-frutos" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#car-frutos" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+          </div>
+        </div>
+        <div class="r-body">
+          <h4 class="r-name">Maré Alta Frutos do Mar</h4>
+          <p class="r-address"><i class="fa-solid fa-location-dot"></i> Av. Olegário Maciel, 2222 — Lourdes</p>
+          <div class="r-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span class="rnum">4.7</span></div>
+          <p class="r-desc">Peixes frescos do dia, moquecas cremosas e ceviches cítricos em ambiente elegante.</p>
+          <div class="r-actions">
+            <a class="btn btn-brand" href="https://resto-review-hub-1.preview.emergentagent.com/restaurante.html?id=frutos" data-testid="btn-details-frutos"><i class="fa-solid fa-circle-info me-1"></i>Detalhes</a>
+            <a class="btn btn-outline-brick" href="https://resto-review-hub-1.preview.emergentagent.com/feedback.html?id=frutos" data-testid="btn-feedback-frutos"><i class="fa-regular fa-comment-dots me-1"></i>Feedback</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="col-12 col-md-6 col-xl-4">
+      <article class="r-card" data-testid="r-card-hamburguer">
+        <div class="card-img-wrap position-relative">
+          <span class="cat-badge cat-hamburguer">Hambúrguer</span>
+          <span class="music-pill ">
+            <i class="fa-solid fa-volume-xmark"></i> Sem música ao vivo
+          </span>
+          <div id="car-hamburguer" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./SaborBH • Início_files/photo-1568901346375-23c9450c58cd" alt="Casa do Hambúrguer Artesanal"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1550317138-10000687a72b" alt="Casa do Hambúrguer Artesanal"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1586190848861-99aa4a171e90" alt="Casa do Hambúrguer Artesanal"></div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#car-hamburguer" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#car-hamburguer" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+          </div>
+        </div>
+        <div class="r-body">
+          <h4 class="r-name">Casa do Hambúrguer Artesanal</h4>
+          <p class="r-address"><i class="fa-solid fa-location-dot"></i> R. Pernambuco, 555 — Funcionários</p>
+          <div class="r-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span class="rnum">4.5</span></div>
+          <p class="r-desc">Blends autorais, pães brioche da casa e batatas rústicas temperadas na hora.</p>
+          <div class="r-actions">
+            <a class="btn btn-brand" href="https://resto-review-hub-1.preview.emergentagent.com/restaurante.html?id=hamburguer" data-testid="btn-details-hamburguer"><i class="fa-solid fa-circle-info me-1"></i>Detalhes</a>
+            <a class="btn btn-outline-brick" href="https://resto-review-hub-1.preview.emergentagent.com/feedback.html?id=hamburguer" data-testid="btn-feedback-hamburguer"><i class="fa-regular fa-comment-dots me-1"></i>Feedback</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="col-12 col-md-6 col-xl-4">
+      <article class="r-card" data-testid="r-card-vegana">
+        <div class="card-img-wrap position-relative">
+          <span class="cat-badge cat-vegana">Vegana / Vegetariana</span>
+          <span class="music-pill ">
+            <i class="fa-solid fa-volume-xmark"></i> Sem música ao vivo
+          </span>
+          <div id="car-vegana" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./SaborBH • Início_files/photo-1512621776951-a57141f2eefd" alt="Verde &amp; Cia Vegana"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1540189549336-e6e99c3679fe" alt="Verde &amp; Cia Vegana"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1543339308-43e59d6b73a6" alt="Verde &amp; Cia Vegana"></div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#car-vegana" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#car-vegana" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+          </div>
+        </div>
+        <div class="r-body">
+          <h4 class="r-name">Verde &amp; Cia Vegana</h4>
+          <p class="r-address"><i class="fa-solid fa-location-dot"></i> R. Sergipe, 333 — Savassi</p>
+          <div class="r-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span class="rnum">4.6</span></div>
+          <p class="r-desc">Pratos coloridos, proteína vegetal e sobremesas sem lactose num espaço iluminado.</p>
+          <div class="r-actions">
+            <a class="btn btn-brand" href="https://resto-review-hub-1.preview.emergentagent.com/restaurante.html?id=vegana" data-testid="btn-details-vegana"><i class="fa-solid fa-circle-info me-1"></i>Detalhes</a>
+            <a class="btn btn-outline-brick" href="https://resto-review-hub-1.preview.emergentagent.com/feedback.html?id=vegana" data-testid="btn-feedback-vegana"><i class="fa-regular fa-comment-dots me-1"></i>Feedback</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="col-12 col-md-6 col-xl-4">
+      <article class="r-card" data-testid="r-card-bistro">
+        <div class="card-img-wrap position-relative">
+          <span class="cat-badge cat-bistro">Bistrô / Contemporâneo</span>
+          <span class="music-pill has">
+            <i class="fa-solid fa-music"></i> Música ao vivo
+          </span>
+          <div id="car-bistro" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./SaborBH • Início_files/photo-1552566626-52f8b828add9(1)" alt="Bistrô da Praça"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1504754524776-8f4f37790ca0" alt="Bistrô da Praça"></div><div class="carousel-item "><img src="./SaborBH • Início_files/photo-1424847651672-bf20a4b0982b" alt="Bistrô da Praça"></div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#car-bistro" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#car-bistro" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+          </div>
+        </div>
+        <div class="r-body">
+          <h4 class="r-name">Bistrô da Praça</h4>
+          <p class="r-address"><i class="fa-solid fa-location-dot"></i> Pç. da Liberdade, 90 — Funcionários</p>
+          <div class="r-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span class="rnum">4.7</span></div>
+          <p class="r-desc">Pratos autorais com toque francês, carta de vinhos e jazz ao vivo nas quintas.</p>
+          <div class="r-actions">
+            <a class="btn btn-brand" href="https://resto-review-hub-1.preview.emergentagent.com/restaurante.html?id=bistro" data-testid="btn-details-bistro"><i class="fa-solid fa-circle-info me-1"></i>Detalhes</a>
+            <a class="btn btn-outline-brick" href="https://resto-review-hub-1.preview.emergentagent.com/feedback.html?id=bistro" data-testid="btn-feedback-bistro"><i class="fa-regular fa-comment-dots me-1"></i>Feedback</a>
+          </div>
+        </div>
+      </article>
+    </div></div>
+</section>
+
+<!-- RECENT -->
+<section class="container mb-5">
+  <div class="recent-box">
+    <h3 data-i18n="recent.title">Adicionados recentemente</h3>
+    <ul class="recent-list" id="recentList" data-testid="recent-list"><li><i class="fa-solid fa-sparkles text-warning"></i> Bistrô da Praça — Funcionários</li><li><i class="fa-solid fa-sparkles text-warning"></i> Empório Mineiro — Santa Tereza</li><li><i class="fa-solid fa-sparkles text-warning"></i> Casa do Hambúrguer Artesanal — Funcionários</li><li><i class="fa-solid fa-sparkles text-warning"></i> Verde &amp; Cia Vegana — Savassi</li></ul>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container d-flex flex-wrap gap-2 justify-content-between align-items-center">
+    <span>© 2026 <strong>SaborBH</strong> — Belo Horizonte, MG</span>
+    <span class="text-muted-soft small" data-i18n="footer.made">Feito com sabor para a Semana 6 📚</span>
+  </div>
+</footer>
+
+<script src="./SaborBH • Início_files/bootstrap.bundle.min.js.baixados"></script>
+<script src="./SaborBH • Início_files/script.js.baixados"></script>
+<script>initHome();</script>
+<script defer="" src="./SaborBH • Início_files/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;7f7b0fd8732c4326aae4b9d58d5c514a&quot;,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+</body></html>

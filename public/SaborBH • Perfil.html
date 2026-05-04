@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)https://resto-review-hub-1.preview.emergentagent.com/perfil.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaborBH • Perfil</title>
+<link href="./SaborBH • Perfil_files/css2" rel="stylesheet">
+<link href="./SaborBH • Perfil_files/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="./SaborBH • Perfil_files/all.min.css">
+<link rel="stylesheet" href="./SaborBH • Perfil_files/style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="sabor-logo" viewBox="0 0 64 64">
+    <defs><lineargradient id="lg1" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ff7a3d"></stop><stop offset="1" stop-color="#c0392b"></stop></lineargradient></defs>
+    <circle cx="32" cy="32" r="30" fill="url(#lg1)"></circle>
+    <path d="M20 18c0 6 3 10 6 12v14a2 2 0 0 0 4 0V30c3-2 6-6 6-12 0-2-1-3-2-3s-2 1-2 3v6a1 1 0 0 1-2 0v-6c0-2-1-3-2-3s-2 1-2 3v6a1 1 0 0 1-2 0v-6c0-2-1-3-2-3s-2 1-2 3z" fill="#fff"></path>
+    <path d="M44 16c-3 1-6 5-6 11s2 9 4 9v8a2 2 0 0 0 4 0V16z" fill="#ffd27a"></path>
+  </symbol>
+</svg>
+
+<nav class="navbar navbar-expand-lg top-nav sticky-top">
+  <div class="container-fluid px-lg-4">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="https://resto-review-hub-1.preview.emergentagent.com/home.html">
+      <svg class="nav-logo"><use href="#sabor-logo"></use></svg>
+      <span class="brand-wordmark">Sabor<strong>BH</strong></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><i class="fa-solid fa-bars text-white"></i></button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="https://resto-review-hub-1.preview.emergentagent.com/home.html" data-i18n="nav.home">Início</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://resto-review-hub-1.preview.emergentagent.com/feedback.html" data-i18n="nav.feedback">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://resto-review-hub-1.preview.emergentagent.com/sobre.html" data-i18n="nav.about">Sobre</a></li>
+        <li class="nav-item"><a class="nav-link active" href="https://resto-review-hub-1.preview.emergentagent.com/perfil.html" data-i18n="nav.profile">Perfil</a></li>
+        <li class="nav-item ms-lg-2">
+          <div class="lang-switch compact">
+            <button type="button" class="lang-btn active" data-lang="pt">PT</button>
+            <button type="button" class="lang-btn" data-lang="en">EN</button>
+            <button type="button" class="lang-btn" data-lang="es">ES</button>
+          </div>
+        </li>
+        <li class="nav-item ms-lg-2">
+          <button id="logoutBtn" class="btn btn-sm btn-ghost-light" data-i18n="nav.logout">Sair</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container my-4">
+  <!-- Profile header -->
+  <section class="profile-head" data-testid="profile-head">
+    <div class="profile-avatar" id="profileAvatar">C</div>
+    <div class="profile-info">
+      <h1 class="profile-name" id="profileName">Convidado</h1>
+      <p class="profile-email text-muted-soft" id="profileEmail">guest@saborbh.app</p>
+      <div class="profile-stats">
+        <div><strong id="statVisits">1</strong> <span data-i18n="profile.visits">visitas</span></div>
+        <div><strong id="statReviews">0</strong> <span data-i18n="profile.reviews">avaliações</span></div>
+        <div><strong id="statPhotos">3</strong> <span data-i18n="profile.photos">fotos</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabs -->
+  <ul class="nav nav-pills profile-tabs mb-3" role="tablist" data-testid="profile-tabs">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tabVisits" type="button" data-i18n="profile.tab.visits" aria-selected="true" role="tab">Frequentados</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabReviews" type="button" data-i18n="profile.tab.reviews" aria-selected="false" tabindex="-1" role="tab">Meus feedbacks</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabPhotos" type="button" data-i18n="profile.tab.photos" aria-selected="false" tabindex="-1" role="tab">Fotos</button>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="tabVisits" role="tabpanel">
+      <div class="row g-3" id="visitsGrid" data-testid="visits-grid">
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="r-card">
+            <div class="card-img-wrap position-relative">
+              <span class="cat-badge cat-massa">Massas / Italiana</span>
+              <img src="./SaborBH • Perfil_files/photo-1517248135467-4c7edcad34c4" alt="Cantina Bella Italia" style="width:100%;aspect-ratio:16/10;object-fit:cover">
+            </div>
+            <div class="r-body">
+              <h4 class="r-name">Cantina Bella Italia</h4>
+              <p class="r-address"><i class="fa-solid fa-location-dot"></i> R. Antônio de Albuquerque, 123 — Savassi</p>
+              <div class="r-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span class="rnum">4.8</span></div>
+              <a class="btn btn-outline-brick mt-auto" href="https://resto-review-hub-1.preview.emergentagent.com/restaurante.html?id=cantina"><i class="fa-solid fa-eye me-1"></i>Ver</a>
+            </div>
+          </article>
+        </div></div>
+    </div>
+    <div class="tab-pane fade" id="tabReviews" role="tabpanel">
+      <div id="myReviews" data-testid="my-reviews"><div class="text-center text-muted-soft py-5">Você ainda não enviou nenhum feedback.</div></div>
+    </div>
+    <div class="tab-pane fade" id="tabPhotos" role="tabpanel">
+      <div class="photo-grid" id="photosGrid" data-testid="photos-grid"><img src="./SaborBH • Perfil_files/photo-1517248135467-4c7edcad34c4" alt="foto"><img src="./SaborBH • Perfil_files/photo-1473093295043-cdd812d0e601" alt="foto"><img src="./SaborBH • Perfil_files/photo-1551183053-bf91a1d81141" alt="foto"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container"><span>© 2026 <strong>SaborBH</strong></span></div>
+</footer>
+
+<script src="./SaborBH • Perfil_files/bootstrap.bundle.min.js.baixados"></script>
+<script src="./SaborBH • Perfil_files/script.js.baixados"></script>
+<script>initProfile();</script>
+<script defer="" src="./SaborBH • Perfil_files/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;7f7b0fd8732c4326aae4b9d58d5c514a&quot;,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+</body></html>
